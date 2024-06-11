@@ -1,6 +1,7 @@
-# simple-node-js-react-npm-app
 
-Approach to Assignment
+
+#Approach to Assignment
+
 Forking the Repository
 I started by forking the original repository simple-node-js-react-npm-app into my own GitHub account.
 Setting Up Jenkins for Local Development
