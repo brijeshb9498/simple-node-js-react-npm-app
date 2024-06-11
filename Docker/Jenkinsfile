@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull Images') {
+            steps {
+                script {
+                    sh 'docker pull postgres:latest'
+                    sh 'docker pull redis:latest'
+                    sh 'docker pull mongo:latest'
+                    sh 'docker pull mongo-express:latest'
+                }
+            }
+        }
+
+        stage('Build and Run Containers') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+
+        stage('Push to Local Registry') {
+            steps {
+                script {
+                    sh 'docker tag postgres:latest localhost:5000/postgres:latest'
+                    sh 'docker tag redis:latest localhost:5000/redis:latest'
+                    sh 'docker tag mongo:latest localhost:5000/mongo:latest'
+                    sh 'docker tag mongo-express:latest localhost:5000/mongo-express:latest'
+
+                    sh 'docker push localhost:5000/postgres:latest'
+                    sh 'docker push localhost:5000/redis:latest'
+                    sh 'docker push localhost:5000/mongo:latest'
+                    sh 'docker push localhost:5000/mongo-express:latest'
+                }
+            }
+        }
+    }
+}
+
