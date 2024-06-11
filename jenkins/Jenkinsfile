@@ -10,7 +10,8 @@ pipeline {
     }
     stages {
         stage('Build') {
-            steps {
+            steps // Cache node_modules directory
+                cache(path: 'node_modules', key: 'npm-cache') {
                 sh 'npm install'
             }
         }
