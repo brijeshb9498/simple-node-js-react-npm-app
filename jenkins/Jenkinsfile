@@ -10,12 +10,11 @@ pipeline {
     }
     stages {
         stage('Build') {
-            steps {  // Cache node_modules directory
-                cache(path: 'node_modules', key: 'npm-cache') {
+            steps {  
                 sh 'npm install'
             }
         }
-        }
+        
         stage('Test') {
             steps {
                 sh './jenkins/scripts/test.sh'
